@@ -87,12 +87,13 @@ public class LoginUsernameActivity extends AppCompatActivity {
                 try {
                     firebaseDatabase.getReference().child("users").child(id).setValue(myUser);
                 }catch (Exception e){
-                    Toast.makeText(LoginUsernameActivity.this, ""+e, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginUsernameActivity.this, "nabin"+""+e, Toast.LENGTH_SHORT).show();
                 }
 
 
 
                 String fileName =id ; // getIntent().getExtras().getString("phone")+
+
 
           try {
               storageReference= FirebaseStorage.getInstance().getReference("images/"+fileName);
@@ -109,6 +110,7 @@ public class LoginUsernameActivity extends AppCompatActivity {
                                 UserImage.setImageURI(null);
                                 Toast.makeText(LoginUsernameActivity.this, "User created Successfully", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginUsernameActivity.this,MainActivity.class);
+                                intent.putExtra("id",id);
                                 startActivity(intent);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -123,7 +125,6 @@ public class LoginUsernameActivity extends AppCompatActivity {
 
 
 
-
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -134,9 +135,6 @@ public class LoginUsernameActivity extends AppCompatActivity {
                 imageUri=data.getData();
                 textChosse.setVisibility(View.GONE);
             }
-
-
-
 
 //            if(requestCode == CAMERA_REQ_CODE){
 //                Toast.makeText(this, "sucess", Toast.LENGTH_SHORT).show();   //this is from camera

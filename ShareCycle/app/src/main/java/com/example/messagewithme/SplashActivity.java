@@ -3,12 +3,15 @@ package com.example.messagewithme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -22,11 +25,21 @@ public class SplashActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+       // Toast.makeText(SplashActivity.this, ""+FirebaseAuth.getInstance().getCurrentUser().getUid(), Toast.LENGTH_LONG).show();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, LoginPhoneNumberActivity.class));
-                finish();
+              if(FirebaseAuth.getInstance().getCurrentUser()!= null){
+                  startActivity(new Intent(SplashActivity.this,MainActivity.class));
+
+                  finish();
+              }else {
+                  startActivity(new Intent(SplashActivity.this, LoginPhoneNumberActivity.class));
+
+                  finish();
+              }
+
             }
         },2500);
     }
