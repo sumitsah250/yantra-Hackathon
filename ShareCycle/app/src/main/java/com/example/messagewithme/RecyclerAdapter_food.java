@@ -48,7 +48,12 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter_food.VieHolder holder, int position) {
 //        holder.imageView.setImageResource(foodDetails.get(position));
-        holder.expiretime.setText("expires in :"+foodDetails.get(position).food_expire);
+        if(foodDetails.get(position).food_expire.equals("")){
+            holder.expiretime.setVisibility(View.GONE);
+            holder.Category_text.setText("Others");
+        }else{
+            holder.expiretime.setText("Expire At :"+foodDetails.get(position).food_expire);
+        }
         holder.title.setText(foodDetails.get(position).food_name);
 
         String imgid = foodDetails.get(position).food_image_name;
@@ -80,6 +85,7 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
             Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
         }
 
+
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +95,7 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
                 intent.putExtra("food_expire",foodDetails.get(position).food_expire);
                 intent.putExtra("food_location",foodDetails.get(position).food_location);
                 intent.putExtra("quantity",foodDetails.get(position).food_quantity);
+                intent.putExtra("Contact_number",foodDetails.get(position).Phon_Number);
                 context.startActivity(intent);
 
             }
@@ -103,8 +110,9 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
 
     public class VieHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView expiretime, title;
+        TextView expiretime, title,Category_text;
         ConstraintLayout constraintLayout;
+
 
 
         public VieHolder(@NonNull View itemView) {
@@ -112,6 +120,7 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
             imageView = itemView.findViewById(R.id.row_image);
             expiretime = itemView.findViewById(R.id.expire_time);
             title = itemView.findViewById(R.id.row_title);
+            Category_text=itemView.findViewById(R.id.category_text);
             constraintLayout=itemView.findViewById(R.id.mainRowRecycler);
         }
     }

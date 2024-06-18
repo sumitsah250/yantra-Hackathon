@@ -39,7 +39,7 @@
         app:layout_marginBaseline="8dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/category_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -61,5 +61,5 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/row_image"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/category_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

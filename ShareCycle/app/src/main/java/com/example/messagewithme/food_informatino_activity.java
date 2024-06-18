@@ -1,5 +1,6 @@
 package com.example.messagewithme;
 
+import android.content.DialogInterface;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -29,10 +31,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class food_informatino_activity extends AppCompatActivity {
-    TextView food_name,expire_time,food_location,Quantity;
+    TextView food_name,expire_time,food_location,Quantity,Contact_Number;
     ImageView food_image;
     StorageReference imageRef;
     Button ConformationBtn;
+
 
 
 
@@ -53,6 +56,7 @@ public class food_informatino_activity extends AppCompatActivity {
         food_location=findViewById(R.id.food_location);
         Quantity=findViewById(R.id.food_quantity);
         ConformationBtn= findViewById(R.id.comformation_btn);
+        Contact_Number=findViewById(R.id.Contact_number);
         String imgid = getIntent().getExtras().getString("food_image_name");
         try{
             imageRef= FirebaseStorage.getInstance().getReference("FoodImage/" + imgid);
@@ -64,16 +68,11 @@ public class food_informatino_activity extends AppCompatActivity {
         }
 
         food_name.setText(getIntent().getExtras().getString("food_name"));
-        expire_time.setText("expiry time :: "+getIntent().getExtras().getString("food_expire"));
+        expire_time.setText("Expire At : "+getIntent().getExtras().getString("food_expire"));
         food_location.setText("Location : "+getIntent().getExtras().getString("food_location"));
         Quantity.setText("Quantity : "+getIntent().getExtras().getString("quantity"));
+       Contact_Number.setText("Contact Number : "+getIntent().getExtras().getString("Contact_number"));
 
-        ConformationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(food_informatino_activity.this, "Your request has been placed successfully", Toast.LENGTH_LONG).show();
-            }
-        });
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -98,5 +97,41 @@ public class food_informatino_activity extends AppCompatActivity {
                 // Handle any errors
             }
         });
+
+        //alert Dialog Box
+
+        ConformationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder delDialog = new AlertDialog.Builder(food_informatino_activity.this);
+                delDialog.setTitle("Are you sure.");
+                delDialog.setMessage("Do you want this item ?\nnote: please save the contact number before this:");
+                delDialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(food_informatino_activity.this, "Your request has been placed successfully", Toast.LENGTH_LONG).show();
+                        finish();
+//                        Toast.makeText(food_informatino_activity.this, "item deleted", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                delDialog.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                });
+                delDialog.show();
+
+               // Toast.makeText(food_informatino_activity.this, "Your request has been placed successfully", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+
     }
-}
+
+    }
+

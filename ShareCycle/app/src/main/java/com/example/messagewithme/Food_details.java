@@ -4,6 +4,17 @@ public class Food_details {
     String food_name;
     String food_expire;
     String food_location;
+    String Phon_Number;
+
+//    public Food_details(String food_name, String food_expire, String food_location, String phon_Number, String food_quantity, String food_image_name, String user_id) {
+//        this.food_name = food_name;
+//        this.food_expire = food_expire;
+//        this.food_location = food_location;
+//        Phon_Number = phon_Number;
+//        this.food_quantity = food_quantity;
+//        this.food_image_name = food_image_name;
+//        this.user_id = user_id;
+//    }
 
     public String getFood_quantity() {
         return food_quantity;
@@ -11,6 +22,14 @@ public class Food_details {
 
     public void setFood_quantity(String food_quantity) {
         this.food_quantity = food_quantity;
+    }
+
+    public String getPhon_Number() {
+        return Phon_Number;
+    }
+
+    public void setPhon_Number(String phon_Number) {
+        Phon_Number = phon_Number;
     }
 
     public Food_details() {
@@ -23,7 +42,8 @@ public class Food_details {
 
     }
 
-    public Food_details(String food_name, String food_expire, String food_location, String food_quantity, String food_image_name, String user_id) {
+    public Food_details(String food_name, String food_expire, String food_location, String food_quantity, String food_image_name, String user_id,String Phone_Number) {
+        this.Phon_Number=Phone_Number;
         this.food_name = food_name;
         this.food_expire = food_expire;
         this.food_location = food_location;

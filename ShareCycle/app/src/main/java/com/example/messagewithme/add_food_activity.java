@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class add_food_activity extends AppCompatActivity {
     private final int GALLARY_REQ_CODE=1;
     StorageReference imageRef;
     Uri imageUri;
+    ProgressBar progressBar;
 
 
     @Override
@@ -48,7 +50,7 @@ public class add_food_activity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        progressBar =findViewById(R.id.Progress_bar);
         food_name_edt=findViewById(R.id.food_name_edt);
         food_image_view=findViewById(R.id.food_image_view);
         food_expire_edt=findViewById(R.id.food_expire_edt);
@@ -59,8 +61,9 @@ public class add_food_activity extends AppCompatActivity {
         donate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setInProgress(true);
                 String id = FirebaseAuth.getInstance().getUid()+food_name_edt.getText().toString();
-                Food_details foodDetails =new Food_details(food_name_edt.getText().toString(),food_expire_edt.getText().toString(),food_location_edt.getText().toString(),food_quantity_edt.getText().toString(),id,FirebaseAuth.getInstance().getCurrentUser().getUid());
+                Food_details foodDetails =new Food_details(food_name_edt.getText().toString(),food_expire_edt.getText().toString(),food_location_edt.getText().toString(),food_quantity_edt.getText().toString(),id,FirebaseAuth.getInstance().getCurrentUser().getUid(),"9809641235");
 
                 try {
                     firebaseDatabase.getReference().child("foodDetails").child(id).setValue(foodDetails);
@@ -82,6 +85,7 @@ public class add_food_activity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                setInProgress(false);
 
 
 //                        Toast.makeText(add_food_activity.this, "User created Successfully", Toast.LENGTH_SHORT).show();
@@ -136,5 +140,14 @@ public class add_food_activity extends AppCompatActivity {
 //            }
         }
 
+    }
+    void setInProgress(boolean inProgress){
+        if(inProgress){
+            progressBar.setVisibility(View.VISIBLE);
+            donate.setVisibility(View.GONE);
+        }else{
+            progressBar.setVisibility(View.GONE);
+            donate.setVisibility(View.VISIBLE);
+        }
     }
 }

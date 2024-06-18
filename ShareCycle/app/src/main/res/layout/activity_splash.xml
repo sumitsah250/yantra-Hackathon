@@ -32,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/message_svgrepo_com" />
+        app:srcCompat="@drawable/picture1" />
 
     <TextView
         android:id="@+id/textView"
@@ -63,9 +63,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
-        android:text="Developed by  Sumit"
+        android:text="Developed By The Inovators"
         android:textColor="#EADADA"
-        android:textSize="16dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
