@@ -47,11 +47,13 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter_food.VieHolder holder, int position) {
+        holder.expiretime.setVisibility(View.VISIBLE);
 //        holder.imageView.setImageResource(foodDetails.get(position));
         if(foodDetails.get(position).food_expire.equals("")){
             holder.expiretime.setVisibility(View.GONE);
             holder.Category_text.setText("Others");
         }else{
+            holder.Category_text.setText("food");
             holder.expiretime.setText("Expire At :"+foodDetails.get(position).food_expire);
         }
         holder.title.setText(foodDetails.get(position).food_name);

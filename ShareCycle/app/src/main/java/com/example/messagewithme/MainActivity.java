@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,12 +43,12 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    String[] items = {"Food","Clothes","Books","Others"};
+    String[] items = {"All","Food","Clothes","Books","Others"};
     RecyclerView recyclerView;
 
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterItems;
-    Button donate_btn;
+    FloatingActionButton donate_btn;
     Button food_btn,Book_btn,Clothes_btn,Others_btn,search_btn;
     ImageView profile_pic_image_view;
     StorageReference imageRef;
@@ -72,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-         search_btn=findViewById(R.id.Search_btn);
-         search_editText=findViewById(R.id.search_editext);
+        search_btn=findViewById(R.id.Search_btn);
+        search_editText=findViewById(R.id.search_editext);
         recyclerView=findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         donate_btn=findViewById(R.id.Donate_btn);
@@ -100,13 +101,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         //profile image
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(MainActivity.this, ""+item, Toast.LENGTH_SHORT).show();
-            }
-        });
+
+
+
+
+
         donate_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,6 +219,79 @@ public class MainActivity extends AppCompatActivity {
                 delDialog.show();
 
 
+            }
+        });
+
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                if(item=="All"){
+                    foodlist.clear();
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("foodDetails");
+
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                                foodDetails =snapshot1.getValue(Food_details.class);
+                                    foodlist.add(foodDetails);
+
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+                else if(item=="Food"){
+                    foodlist.clear();
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("foodDetails");
+
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                                foodDetails =snapshot1.getValue(Food_details.class);
+                                if(!"".equals(foodDetails.food_expire)){
+                                    foodlist.add(foodDetails);
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }else{
+                    foodlist.clear();
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("foodDetails");
+
+                    reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                                foodDetails =snapshot1.getValue(Food_details.class);
+                                if("".equals(foodDetails.food_expire)){
+                                    foodlist.add(foodDetails);
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
             }
         });
 
