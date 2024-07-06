@@ -58,7 +58,6 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:hint="Select Category"
-        android:paddingLeft="25dp"
         android:textColorHint="#000"
         app:layout_constraintEnd_toEndOf="@+id/Profile_pic_image_view"
         app:layout_constraintStart_toStartOf="parent"

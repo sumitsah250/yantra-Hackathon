@@ -1,6 +1,7 @@
 package com.example.messagewithme;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -11,13 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -99,6 +104,48 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
                 intent.putExtra("quantity",foodDetails.get(position).food_quantity);
                 intent.putExtra("Contact_number",foodDetails.get(position).Phon_Number);
                 context.startActivity(intent);
+
+            }
+        });
+        holder.constraintLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder delDialog = new AlertDialog.Builder(context);
+                delDialog.setTitle("Are you sure ");
+                delDialog.setMessage("Do you want to remove this item ?");
+                delDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String foodid = FirebaseAuth.getInstance().getCurrentUser().getUid()+foodDetails.get(position).food_name;
+                        FirebaseDatabase.getInstance().getReference().child("foodDetails")
+                                .child(foodid)
+                                .removeValue()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        foodDetails.remove(position);
+                                        notifyItemRemoved(position);
+                                        Toast.makeText(context, "Item removed successfully", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    }
+                                }
+                                );
+
+
+                    }
+                });
+                delDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                });
+                delDialog.show();
+
+
+
+                return false;
 
             }
         });

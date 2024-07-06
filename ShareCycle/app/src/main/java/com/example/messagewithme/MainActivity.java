@@ -43,7 +43,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    String[] items = {"All","Food","Clothes","Books","Others"};
+    String[] items = {"All","Food","Others"};
     RecyclerView recyclerView;
 
     AutoCompleteTextView autoCompleteTextView;
@@ -112,16 +112,29 @@ public class MainActivity extends AppCompatActivity {
                 Dialog dialog = new Dialog(MainActivity.this);
                 dialog.setContentView(R.layout.donate_dialog_box);
                 food_btn=dialog.findViewById(R.id.food_btn);
-                Book_btn=dialog.findViewById(R.id.Books_btn);
-                Clothes_btn=dialog.findViewById(R.id.Clothes_btn);
+//                Book_btn=dialog.findViewById(R.id.Books_btn);
+//                Clothes_btn=dialog.findViewById(R.id.Clothes_btn);
+
                 Others_btn=dialog.findViewById(R.id.Others_btn);
 
                 food_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(MainActivity.this,add_food_activity.class));
+                        Intent intent = new Intent(MainActivity.this,add_food_activity.class);
+                        intent.putExtra("category","food");
+                        startActivity(intent);
                     }
                 });
+                Others_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this,add_food_activity.class);
+                        intent.putExtra("category","others");
+                        startActivity(intent);
+
+                    }
+                });
+
                 dialog.show();
 
 
@@ -159,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
             search_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!search_editText.getText().toString().equals("")){
+                    if(!search_editText.getText().toString().toLowerCase().equals("")){
                         foodlist.clear();
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("foodDetails");
 
@@ -168,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for(DataSnapshot snapshot1 : snapshot.getChildren()){
                                     foodDetails =snapshot1.getValue(Food_details.class);
-                                    if(search_editText.getText().toString().equals(foodDetails.food_name)){
+                                    if(search_editText.getText().toString().toLowerCase().equals(foodDetails.food_name.toLowerCase())){
                                         foodlist.add(foodDetails);
                                     }
                                 }

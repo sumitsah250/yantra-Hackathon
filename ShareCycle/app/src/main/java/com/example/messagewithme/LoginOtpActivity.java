@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -137,17 +138,27 @@ public class LoginOtpActivity extends AppCompatActivity {
         firebaseAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                setInProgress(false);
-                String id = task.getResult().getUser().getUid();
 
-                if(task.isSuccessful()){
-                    Intent intent = new Intent(LoginOtpActivity.this,LoginUsernameActivity.class);
-                    intent.putExtra("phone",phoneNumber);
-                    intent.putExtra("id",id);
-                    startActivity(intent);
-                    finish();
-                }else{
-                    AndroidUtil.showToast(getApplicationContext(),"OTP verification failed");
+                setInProgress(false);
+
+                FirebaseUser user = task.getResult().getUser();
+                long creationTimestamp = user.getMetadata().getCreationTimestamp();
+                long lastSignInTimestamp = user.getMetadata().getLastSignInTimestamp();
+                if (creationTimestamp == lastSignInTimestamp) {
+                    String id = task.getResult().getUser().getUid();
+                    if(task.isSuccessful()){
+                        Intent intent = new Intent(LoginOtpActivity.this,LoginUsernameActivity.class);
+                        intent.putExtra("phone",phoneNumber);
+                        intent.putExtra("id",id);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        AndroidUtil.showToast(getApplicationContext(),"OTP verification failed");
+                    }
+                    //do create new user
+                } else {
+                    startActivity(new Intent(LoginOtpActivity.this,MainActivity.class));
+                    //user is exists, just do login
                 }
 
             }

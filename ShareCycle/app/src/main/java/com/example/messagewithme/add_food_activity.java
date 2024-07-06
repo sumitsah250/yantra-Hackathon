@@ -38,6 +38,7 @@ public class add_food_activity extends AppCompatActivity {
     StorageReference imageRef;
     Uri imageUri;
     ProgressBar progressBar;
+    TextView categorytext,expiretext;
 
 
     @Override
@@ -57,6 +58,20 @@ public class add_food_activity extends AppCompatActivity {
         food_location_edt=findViewById(R.id.food_location_edt);
         food_quantity_edt = findViewById(R.id.food_quantity_edt);
         donate=findViewById(R.id.Donate_food_btn);
+        categorytext= findViewById(R.id.categorytext);
+        expiretext=findViewById(R.id.expiretext);
+
+        Intent intent = getIntent();
+        String categ = intent.getStringExtra("category");
+        if(categ.equals("food")){
+            categorytext.setText("Food");
+
+
+        }else{
+            categorytext.setText("Others");
+            expiretext.setVisibility(View.GONE);
+            food_expire_edt.setVisibility(View.GONE);
+        }
 
         donate.setOnClickListener(new View.OnClickListener() {
             @Override

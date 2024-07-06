@@ -32,34 +32,13 @@
             android:layout_margin="10dp"
             >
         </Button>
-        <Button
-            android:layout_weight="50"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:text="Books"
-            android:id="@+id/Books_btn"
-            android:textStyle="bold"
-            android:layout_margin="10dp"
-            >
-        </Button>
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_weight="100"
         android:layout_height="wrap_content">
-        <Button
-            android:layout_weight="50"
-            android:layout_width="wrap_content"
-            android:id="@+id/Clothes_btn"
-            android:text="Clothes"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            >
-        </Button>
+
         <Button
             android:layout_weight="50"
             android:layout_width="wrap_content"

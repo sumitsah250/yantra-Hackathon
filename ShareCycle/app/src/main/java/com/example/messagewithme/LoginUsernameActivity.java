@@ -1,5 +1,7 @@
 package com.example.messagewithme;
 
+import static kotlin.jvm.internal.Reflection.function;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,6 +27,7 @@ import com.example.messagewithme.Utils.AndroidUtil;
 import com.example.messagewithme.Utils.MyUser;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthKt;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -57,6 +60,10 @@ public class LoginUsernameActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+
+
         username=findViewById(R.id.login_username);
         UserImage=findViewById(R.id.login_image_view);
         textChosse=findViewById(R.id.choose_image_text);
