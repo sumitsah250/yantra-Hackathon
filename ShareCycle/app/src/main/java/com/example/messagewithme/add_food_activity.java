@@ -20,10 +20,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.messagewithme.Utils.AndroidUtil;
+import com.example.messagewithme.Utils.MyUser;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -39,6 +44,8 @@ public class add_food_activity extends AppCompatActivity {
     Uri imageUri;
     ProgressBar progressBar;
     TextView categorytext,expiretext;
+    MyUser myUser;
+    String phonenum="xxxxxx";
 
 
     @Override
@@ -72,13 +79,28 @@ public class add_food_activity extends AppCompatActivity {
             expiretext.setVisibility(View.GONE);
             food_expire_edt.setVisibility(View.GONE);
         }
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                myUser=new MyUser();
+                myUser=snapshot.getValue(MyUser.class);
+                phonenum=myUser.getPhonenumbar();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         donate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setInProgress(true);
                 String id = FirebaseAuth.getInstance().getUid()+food_name_edt.getText().toString();
-                Food_details foodDetails =new Food_details(food_name_edt.getText().toString(),food_expire_edt.getText().toString(),food_location_edt.getText().toString(),food_quantity_edt.getText().toString(),id,FirebaseAuth.getInstance().getCurrentUser().getUid(),"9809641235");
+
+                Food_details foodDetails =new Food_details(food_name_edt.getText().toString(),food_expire_edt.getText().toString(),food_location_edt.getText().toString(),food_quantity_edt.getText().toString(),id,FirebaseAuth.getInstance().getCurrentUser().getUid(),phonenum);
 
                 try {
                     firebaseDatabase.getReference().child("foodDetails").child(id).setValue(foodDetails);

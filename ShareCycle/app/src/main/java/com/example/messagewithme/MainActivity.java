@@ -96,10 +96,6 @@ public class MainActivity extends AppCompatActivity {
            downloadImage(imageRef);
        }
 
-
-
-
-
         //profile image
 
 
@@ -208,28 +204,12 @@ public class MainActivity extends AppCompatActivity {
         profile_pic_image_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder delDialog = new AlertDialog.Builder(MainActivity.this);
-                delDialog.setTitle("Are you sure ");
-                delDialog.setMessage("Do you want to logout");
-                delDialog.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        FirebaseAuth.getInstance().signOut();
-                        Toast.makeText(MainActivity.this, "logged out", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this,LoginPhoneNumberActivity.class));
-                        finish();
-
-//                        Toast.makeText(food_informatino_activity.this, "item deleted", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                delDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
 
-                    }
-                });
-                delDialog.show();
+
+
+
+                startActivity(new Intent(MainActivity.this,Edit_Profile.class));
 
 
             }

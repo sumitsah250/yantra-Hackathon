@@ -8,41 +8,77 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Edit_Profile">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/btn_logout"
+        android:gravity="center"
+        android:layout_gravity="right"
+        >
+    </Button>
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_margin="20dp"
+    android:layout_marginTop="30dp"
     android:layout_height="240dp">
+
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/edit_profile_pic"
         android:layout_width="match_parent"
         android:layout_height="240dp"
+        android:maxHeight="240dp"
+        android:scaleType="centerCrop"
+        android:maxWidth="240dp"
         android:src="@drawable/person_circle_svgrepo_com">
     </de.hdodenhof.circleimageview.CircleImageView>
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
+        android:id="@+id/edt_change_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:backgroundTint="@color/light_gray"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="96dp"
-        android:maxHeight="40dp"
-        android:maxWidth="40dp"
-        android:background="@color/white"
-        android:layout_marginBottom="33dp"
+        android:layout_marginRight="59dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_rounded_corner"
+        android:foregroundGravity="center"
         android:src="@drawable/icons8_edit">
 
-    </de.hdodenhof.circleimageview.CircleImageView>
+    </ImageView>
 
 </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         >
-        <TextView
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_margin="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name:"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_user_name"
+                android:hint="Username" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="right"
+        android:text="Save"
+        android:layout_margin="20dp"
+        android:id="@+id/btnsave"
+        >
+
+    </Button>
 
 
 

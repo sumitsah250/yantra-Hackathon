@@ -71,7 +71,8 @@ public class food_informatino_activity extends AppCompatActivity {
         expire_time.setText("Expire At : "+getIntent().getExtras().getString("food_expire"));
         food_location.setText("Location : "+getIntent().getExtras().getString("food_location"));
         Quantity.setText("Quantity : "+getIntent().getExtras().getString("quantity"));
-       Contact_Number.setText("Contact Number : "+getIntent().getExtras().getString("Contact_number"));
+        Contact_Number.setText("Contact Number : "+getIntent().getExtras().getString("Contact_number"));
+//        Contact_Number.setText("88");
 
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid());

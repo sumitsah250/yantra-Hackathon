@@ -64,14 +64,14 @@ public class Food_details {
 
     String food_image_name;
     String user_id;
-
-    public Food_details(String food_name, String food_expire, String food_location, String food_image_name, String user_id) {
-        this.food_name = food_name;
-        this.food_expire = food_expire;
-        this.food_location = food_location;
-        this.food_image_name = food_image_name;
-        this.user_id = user_id;
-    }
+//
+//    public Food_details(String food_name, String food_expire, String food_location, String food_image_name, String user_id) {
+//        this.food_name = food_name;
+//        this.food_expire = food_expire;
+//        this.food_location = food_location;
+//        this.food_image_name = food_image_name;
+//        this.user_id = user_id;
+//    }
 
     public String getFood_name() {
         return food_name;

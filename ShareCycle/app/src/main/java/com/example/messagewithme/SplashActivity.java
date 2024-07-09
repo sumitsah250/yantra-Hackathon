@@ -6,12 +6,19 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.messagewithme.Utils.MyUser;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -25,8 +32,24 @@ public class SplashActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-       // Toast.makeText(SplashActivity.this, ""+FirebaseAuth.getInstance().getCurrentUser().getUid(), Toast.LENGTH_LONG).show();
+        //just for test
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                MyUser myUser= new MyUser();
+//                myUser=snapshot.getValue(MyUser.class);
+//                Toast.makeText(SplashActivity.this, ""+myUser.getPhonenumbar()+myUser.getUsername(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
+        // Toast.makeText(SplashActivity.this, ""+FirebaseAuth.getInstance().getCurrentUser().getUid(), Toast.LENGTH_LONG).show();
+     // just for test
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

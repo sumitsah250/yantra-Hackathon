@@ -9,6 +9,9 @@ public class MyUser {
         return username;
     }
 
+    public MyUser() {
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
