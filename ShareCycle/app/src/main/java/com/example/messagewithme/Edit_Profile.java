@@ -64,10 +64,6 @@ public class Edit_Profile extends AppCompatActivity {
         logoutbtn=findViewById(R.id.btn_logout);
 
 
-
-
-
-
         try{
             imageRef= FirebaseStorage.getInstance().getReference("images/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         }catch(Exception e){
@@ -156,6 +152,8 @@ public class Edit_Profile extends AppCompatActivity {
                                 AndroidUtil.showToast(getApplicationContext()," failed to upload the image");
                             }
                         });
+                finish();
+
 
             }
         });

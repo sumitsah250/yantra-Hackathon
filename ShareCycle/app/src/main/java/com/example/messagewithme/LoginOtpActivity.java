@@ -144,21 +144,41 @@ public class LoginOtpActivity extends AppCompatActivity {
                 FirebaseUser user = task.getResult().getUser();
                 long creationTimestamp = user.getMetadata().getCreationTimestamp();
                 long lastSignInTimestamp = user.getMetadata().getLastSignInTimestamp();
-                if (creationTimestamp == lastSignInTimestamp) {
+
+                if(creationTimestamp == lastSignInTimestamp){
                     String id = task.getResult().getUser().getUid();
+
                     if(task.isSuccessful()){
-                        Intent intent = new Intent(LoginOtpActivity.this,LoginUsernameActivity.class);
-                        intent.putExtra("phone",phoneNumber);
-                        intent.putExtra("id",id);
-                        startActivity(intent);
-                        finish();
+                        try {
+                            Intent intent = new Intent(LoginOtpActivity.this,LoginUsernameActivity.class);
+                            intent.putExtra("phone",phoneNumber);
+                            intent.putExtra("id",id);
+                            startActivity(intent);
+                            finish();
+
+
+                        }catch (Exception e){
+                            Toast.makeText(LoginOtpActivity.this, ""+e, Toast.LENGTH_SHORT).show();
+                        }
+
                     }else{
-                        AndroidUtil.showToast(getApplicationContext(),"OTP verification failed");
+
+                        try {
+                            AndroidUtil.showToast(getApplicationContext(),"OTP verification failed");
+
+                        }catch (Exception e){
+                            Toast.makeText(LoginOtpActivity.this, ""+e, Toast.LENGTH_SHORT).show();
+                        }
+//                        AndroidUtil.showToast(getApplicationContext(),"OTP verification failed");
                     }
                     //do create new user
                 } else {
-                    startActivity(new Intent(LoginOtpActivity.this,MainActivity.class));
                     //user is exists, just do login
+                    try {
+                        startActivity(new Intent(LoginOtpActivity.this,MainActivity.class));
+                    }catch (Exception e){
+                        Toast.makeText(LoginOtpActivity.this, ""+e, Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }

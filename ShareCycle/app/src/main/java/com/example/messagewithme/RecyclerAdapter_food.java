@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,9 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter_food.VieHolder holder, int position) {
+
+        holder.progressBar.setVisibility(View.VISIBLE);
+
         holder.expiretime.setVisibility(View.VISIBLE);
 //        holder.imageView.setImageResource(foodDetails.get(position));
         if(foodDetails.get(position).food_expire.equals("")){
@@ -75,6 +79,7 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
                 url = uri.toString();
                 if (imageRef != null) {
                     Glide.with(context).load(url).into(holder.imageView);
+                    holder.progressBar.setVisibility(View.GONE);
                 }
 
                 // Got the download URL for 'users/me/profile.png'
@@ -161,6 +166,7 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
         ImageView imageView;
         TextView expiretime, title,Category_text;
         ConstraintLayout constraintLayout;
+        ProgressBar progressBar;
 
 
 
@@ -171,6 +177,7 @@ public class RecyclerAdapter_food extends RecyclerView.Adapter<RecyclerAdapter_f
             title = itemView.findViewById(R.id.row_title);
             Category_text=itemView.findViewById(R.id.category_text);
             constraintLayout=itemView.findViewById(R.id.mainRowRecycler);
+            progressBar=itemView.findViewById(R.id.progressbar);
         }
     }
 

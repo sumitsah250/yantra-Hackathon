@@ -62,8 +62,6 @@ public class LoginUsernameActivity extends AppCompatActivity {
         });
 
 
-
-
         username=findViewById(R.id.login_username);
         UserImage=findViewById(R.id.login_image_view);
         textChosse=findViewById(R.id.choose_image_text);
